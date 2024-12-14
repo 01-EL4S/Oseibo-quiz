@@ -34,3 +34,11 @@
 .item-box .oseibo-name {
     white-space: nowrap;
 }
+
+.modal {
+    position: fixed;
+    background-color : #ddd;
+    top : 50%;
+    left : 50%;
+    transform : translate(-50%,-50%);
+}

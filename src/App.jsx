@@ -10,6 +10,8 @@ function App() {
   const [currentItems, setCurrentItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [difference, setDifference] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalContent, setModalContent] = useState({});
 
   useEffect(() => {
     if (round > 0 && round <= 5) {
@@ -35,13 +37,23 @@ function App() {
       setScore(prev => prev + diff);
     }
 
-    setSelectedItems(prev => [...prev, ...currentItems.map(i => i.id)]);
+    setModalContent({
+      selectedItem: item,
+      maxItem,
+      difference: difference
+    });
+    setModalVisible(true);
 
-    if (round < 5) {
-      setRound(round + 1);
-    } else {
-      setScreen('result');
-    }
+    setTimeout(() => {
+      setModalVisible(false);
+      setSelectedItems(prev => [...prev, ...currentItems.map(i => i.id)]);
+
+      if (round < 5) {
+        setRound(round + 1);
+      } else {
+        setScreen('result');
+      }
+    },6000);
   };
 
   return (
@@ -75,6 +87,15 @@ function App() {
               </div>
             ))}
           </div>
+
+          {modalVisible && (
+            <div className="modal">
+              <p>一番高い商品: {modalContent.maxItem.name}</p>
+              <img src={"/images/" + modalContent.maxItem.id + ".png"} alt={modalContent.maxItem.name} />
+              <p>値段: ¥{modalContent.maxItem.price}</p>
+              <p>差額: ¥{modalContent.difference}</p>
+            </div>
+          )}
         </div>
       )}
 
