@@ -1,0 +1,36 @@
+.start{
+    position: absolute;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%,-50%);
+}
+
+.start button {
+    position : relative;
+    left : 50%;
+    transform: translate(-50%, 0);
+    border: none;
+    border-radius: 3px;
+    padding: 10px 20px;
+}
+
+.grid {
+    display: grid;
+    width: 900px;
+    grid-template-columns: repeat(3, auto);
+}
+
+.item-box {
+    background-color: #eee;
+    width : 33.333%;
+    height : 250px;
+}
+
+.item-box img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.item-box .oseibo-name {
+    white-space: nowrap;
+}

@@ -1,15 +1,6 @@
 import { useState, useEffect } from 'react';
-
-const generateRandomItems = () => {
-  return Array.from({ length: 100 }, (_, index) => ({
-    id: index + 1,
-    name: `商品${index + 1}`,
-    price: Math.floor(Math.random() * 5000) + 500, // Random price between 500 and 5500
-    image: `https://via.placeholder.com/150?text=商品${index + 1}`
-  }));
-};
-
-const testItems = generateRandomItems();
+import './App.css';
+import oseibo from './oseibo_list.json';
 
 function App() {
 
@@ -27,7 +18,7 @@ function App() {
   }, [round]);
 
   const generateItems = () => {
-    const availableItems = testItems.filter(item => !selectedItems.includes(item.id));
+    const availableItems = oseibo["list"].filter(item => !selectedItems.includes(item.id));
     const shuffled = [...availableItems].sort(() => Math.random() - 0.5);
     const itemsForRound = shuffled.slice(0, 9);
     setCurrentItems(itemsForRound);
@@ -71,9 +62,7 @@ function App() {
       {screen === 'game' && (
         <div className='game'>
           <h2>ラウンド {round} / 5</h2>
-          {difference !== null && (
-            <p>差額: ¥{difference}</p>
-          )}
+          <p>スコア : -{score}</p>
           <div className='grid'>
             {currentItems.map(item => (
               <div
@@ -81,8 +70,8 @@ function App() {
                 className='item-box'
                 onClick={() => handleSelect(item)}
               >
-                <img src={item.image} alt={item.name} />
-                <p>{item.name}</p>
+                <img src={"/images/" + item.id + ".png"} alt={item.name} />
+                <div className='oseibo-name'>{item.name}</div>
               </div>
             ))}
           </div>
@@ -92,7 +81,7 @@ function App() {
       {screen === 'result' && (
         <div className="result">
           <h1>ゲーム終了</h1>
-          <p>最終スコア: ¥{score}</p>
+          <p>お前は ¥-{score} 損したぜ</p>
           <button onClick={() => {
             setScreen('start');
             setRound(0);
