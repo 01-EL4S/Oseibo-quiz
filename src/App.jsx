@@ -9,7 +9,8 @@ function App() {
   const [score, setScore] = useState(0);
   const [currentItems, setCurrentItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [difference, setDifference] = useState(null);
+  const [log, setLog] = useState([]);
+  const [difference, setDifference] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState({});
 
@@ -29,23 +30,19 @@ function App() {
   const handleSelect = (item) => {
     const maxItem = currentItems.reduce((max, current) => current.price > max.price ? current : max, currentItems[0]);
 
-    if (item.id === maxItem.id) {
-      setDifference(0);
-    } else {
-      const diff = maxItem.price - item.price;
-      setDifference(diff);
-      setScore(prev => prev + diff);
-    }
-
+    const diff = maxItem.price - item.price;
+    setScore(prev => prev + diff);
+    setLog(prev => [...prev, diff]);
     setModalContent({
       selectedItem: item,
       maxItem,
-      difference: difference
+      difference: diff
     });
     setModalVisible(true);
 
     setTimeout(() => {
       setModalVisible(false);
+      setDifference(0);
       setSelectedItems(prev => [...prev, ...currentItems.map(i => i.id)]);
 
       if (round < 5) {
@@ -76,6 +73,9 @@ function App() {
           <div className='score'>
             <h2>ラウンド {round} / 5</h2>
             <p>スコア : -{score}</p>
+            {log.map(item => (
+              <p>{item}</p>
+            ))}
           </div>
           <div className='grid'>
             {currentItems.map(item => (
