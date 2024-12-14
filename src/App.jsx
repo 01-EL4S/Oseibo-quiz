@@ -61,8 +61,10 @@ function App() {
 
       {screen === 'game' && (
         <div className='game'>
-          <h2>ラウンド {round} / 5</h2>
-          <p>スコア : -{score}</p>
+          <div className='score'>
+            <h2>ラウンド {round} / 5</h2>
+            <p>スコア : -{score}</p>
+          </div>
           <div className='grid'>
             {currentItems.map(item => (
               <div

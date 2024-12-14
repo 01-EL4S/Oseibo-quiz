@@ -1,3 +1,4 @@
+
 .start{
     position: absolute;
     top : 50%;
@@ -14,23 +15,29 @@
     padding: 10px 20px;
 }
 
+.game {
+    display: flex;
+    justify-content: center;
+}
+.score {
+    padding: 40px;
+}
 .grid {
-    display: grid;
-    width: 900px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 640px;
+    padding-top: 20px;
     grid-template-columns: repeat(3, auto);
 }
 
 .item-box {
-    background-color: #eee;
-    width : 33.333%;
-    height : 250px;
+    background-color: #fff;
+    width: 200px;
 }
 
 .item-box img {
+    width: 200px;
     height: 200px;
-    object-fit: cover;
-}
-
-.item-box .oseibo-name {
-    white-space: nowrap;
+    object-fit: contain;
 }
